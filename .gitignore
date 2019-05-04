@@ -1,0 +1,6 @@
+## hiding json
+*.json
+
+## hiding pickles
+*.pkl
+*.csv
