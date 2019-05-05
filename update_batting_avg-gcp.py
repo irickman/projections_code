@@ -42,7 +42,7 @@ def main():
             d['fix_date']=d.Date.str.replace("\(\d\)","").str.strip() + " 2019"
             d['game_date']=pd.to_datetime(d.fix_date.apply(lambda x: datetime.strptime(x,"%A, %b %d %Y")).apply(lambda x: x.strftime("%Y-%m-%d")),infer_datetime_format=True)
             d['Place']=d.Home_Away.apply(lambda x: "Home" if x=="Home" else "Away")
-            d2=d[d.game_date>df.game_date.max()+1][['Place',"Opp","game_date"]]
+            d2=d[d.game_date>df.game_date.max()][['Place',"Opp","game_date"]]
             team_schedule[t]=d2
         except ValueError:
             print(t)
