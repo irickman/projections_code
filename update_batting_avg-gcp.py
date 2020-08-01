@@ -11,7 +11,7 @@ import argparse
 import sys
 
 def run_pull(start_date,yr=2020):
-    pth="../data"
+    pth="/home/irarickman/data"
     yd=(datetime.now(pytz.timezone('US/Eastern')) - timedelta(1)).strftime('%Y-%m-%d')
     if start_date==yd:
         ## if the entered date equals yesterday (which it will in the dag), we need to check the previous day's data
