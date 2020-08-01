@@ -49,7 +49,7 @@ def run_pull(start_date,yr=2020):
     for t in teams_fixed:
         try:
             d=schedule_and_record(yr,t)
-            d['fix_date']=d.Date.str.replace("\(\d\)","").str.strip() + " " + yr
+            d['fix_date']=d.Date.str.replace("\(\d\)","").str.strip() + " " + str(yr)
             d['game_date']=pd.to_datetime(d.fix_date.apply(lambda x: datetime.strptime(x,"%A, %b %d %Y")).apply(lambda x: x.strftime("%Y-%m-%d")),infer_datetime_format=True)
             d['Place']=d.Home_Away.apply(lambda x: "Home" if x=="Home" else "Away")
             d2=d[d.game_date>df.game_date.max()][['Place',"Opp","game_date"]]
