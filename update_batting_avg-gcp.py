@@ -10,7 +10,7 @@ import time
 import argparse
 import sys
 
-def main():
+def run_pull(start_date,yr=2020):
     pth="../data"
     yd=(datetime.now(pytz.timezone('US/Eastern')) - timedelta(1)).strftime('%Y-%m-%d')
     if start_date==yd:
@@ -48,8 +48,8 @@ def main():
     missed=[]
     for t in teams_fixed:
         try:
-            d=schedule_and_record(2019,t)
-            d['fix_date']=d.Date.str.replace("\(\d\)","").str.strip() + " 2019"
+            d=schedule_and_record(yr,t)
+            d['fix_date']=d.Date.str.replace("\(\d\)","").str.strip() + " " + yr
             d['game_date']=pd.to_datetime(d.fix_date.apply(lambda x: datetime.strptime(x,"%A, %b %d %Y")).apply(lambda x: x.strftime("%Y-%m-%d")),infer_datetime_format=True)
             d['Place']=d.Home_Away.apply(lambda x: "Home" if x=="Home" else "Away")
             d2=d[d.game_date>df.game_date.max()][['Place',"Opp","game_date"]]
