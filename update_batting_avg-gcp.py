@@ -10,7 +10,7 @@ import time
 import argparse
 import sys
 
-def run_pull(start_date,yr=2020):
+def run_pull(start_date,yr=2021):
     pth="/home/irarickman/data"
     yd=(datetime.now(pytz.timezone('US/Eastern')) - timedelta(1)).strftime('%Y-%m-%d')
     if start_date==yd:
