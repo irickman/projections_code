@@ -1,6 +1,5 @@
-## starting off by translating my other statcast methods
-## will need to convert to the def main function
-
+## starting of by translating my other statcast methods
+# will need to convert to the def main function
 
 import pandas as pd
 import pygsheets
@@ -10,24 +9,17 @@ import pytz
 import time
 import argparse
 import sys
-import os.path
-from os import path
 
-def run_pull(start_date,yr=2021):
+def run_pull(start_date,yr=2020):
     pth="/home/irarickman/data"
-    if path.exists(pth + '/lastabs.pkl'):
+    yd=(datetime.now(pytz.timezone('US/Eastern')) - timedelta(1)).strftime('%Y-%m-%d')
+    if start_date==yd:
+        ## if the entered date equals yesterday (which it will in the dag), we need to check the previous day's data
+        ## to make sure that we didn't miss anything
         old_data=pd.read_pickle(pth + "/lastabs.pkl")
         old_data.game_date=pd.to_datetime(old_data.game_date,infer_datetime_format=True)
         prev_date=old_data.game_date.max()
         od=prev_date.strftime("%Y-%m-%d")
-        yd=(datetime.now(pytz.timezone('US/Eastern')) - timedelta(1)).strftime('%Y-%m-%d')
-        if od==yd:
-            skip=True
-        else:
-            skip=False
-    if start_date==yd or not skip:
-        ## if the entered date equals yesterday (which it will in the dag), we need to check the previous day's data
-        ## to make sure that we didn't miss anything
         new_d=statcast(od,yd)
         new_data=new_d[new_d.events.notnull()]
         players_ids=playerid_reverse_lookup(new_data.batter.unique())
@@ -119,7 +111,8 @@ if __name__ == '__main__':
         nargs="?",
         # This is ensuring the current day is today in Eastern time zone
         default=(datetime.now(pytz.timezone('US/Eastern')) - timedelta(1)).strftime('%Y-%m-%d'),
-        help="Enter the start date, otherwise it will default to yesterday", )
+        help="Enter the start date, otherwise it will default to yesterday",
+    )
     args=parser.parse_args()
     main(args)
     sys.exit()
