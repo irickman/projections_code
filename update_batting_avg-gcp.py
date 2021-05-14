@@ -1,4 +1,4 @@
-## starting of by translating my other statcast methods
+## starting off by translating my other statcast methods
 # will need to convert to the def main function
 
 import pandas as pd
@@ -13,6 +13,7 @@ import sys
 def run_pull(start_date,yr=2021):
     pth="/home/irarickman/data"
     yd=(datetime.now(pytz.timezone('US/Eastern')) - timedelta(1)).strftime('%Y-%m-%d')
+    print ("why is this happening")
     if start_date==yd:
         ## if the entered date equals yesterday (which it will in the dag), we need to check the previous day's data
         ## to make sure that we didn't miss anything
