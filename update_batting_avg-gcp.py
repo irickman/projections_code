@@ -1,5 +1,6 @@
 ## starting off by translating my other statcast methods
-# will need to convert to the def main function
+## will need to convert to the def main function
+
 
 import pandas as pd
 import pygsheets
@@ -13,7 +14,6 @@ import sys
 def run_pull(start_date,yr=2021):
     pth="/home/irarickman/data"
     yd=(datetime.now(pytz.timezone('US/Eastern')) - timedelta(1)).strftime('%Y-%m-%d')
-    print ("why is this happening")
     if start_date==yd:
         ## if the entered date equals yesterday (which it will in the dag), we need to check the previous day's data
         ## to make sure that we didn't miss anything
@@ -112,8 +112,7 @@ if __name__ == '__main__':
         nargs="?",
         # This is ensuring the current day is today in Eastern time zone
         default=(datetime.now(pytz.timezone('US/Eastern')) - timedelta(1)).strftime('%Y-%m-%d'),
-        help="Enter the start date, otherwise it will default to yesterday",
-    )
+        help="Enter the start date, otherwise it will default to yesterday", )
     args=parser.parse_args()
     main(args)
     sys.exit()
