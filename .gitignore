@@ -4,3 +4,6 @@
 ## hiding pickles
 *.pkl
 *.csv
+
+## hiding checkpoints
+**.ipynb_checkpoints
