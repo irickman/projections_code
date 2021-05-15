@@ -22,20 +22,16 @@ def run_pull(start_date,yr=2021):
         prev_date=old_data.game_date.max()
         od=prev_date.strftime("%Y-%m-%d")
         if od==yd:
-            run=False
+            return
         else:
-            run=True
-    else:
-        run=False
-    if start_date==yd and run:
-        ## if the entered date equals yesterday (which it will in the dag), we need to check the previous day's data
-        ## to make sure that we didn't miss anything
-        new_d=statcast(od,yd)
-        new_data=new_d[new_d.events.notnull()]
-        players_ids=playerid_reverse_lookup(new_data.batter.unique())
-        id_df=players_ids[['name_last','name_first','key_mlbam']]
-        new_names=new_data.merge(id_df, how = 'left',left_on='batter',right_on='key_mlbam')
-        df=pd.concat([old_data,new_names])
+            ## if the entered date equals yesterday (which it will in the dag), we need to check the previous day's data
+            ## to make sure that we didn't miss anything
+            new_d=statcast(od,yd)
+            new_data=new_d[new_d.events.notnull()]
+            players_ids=playerid_reverse_lookup(new_data.batter.unique())
+            id_df=players_ids[['name_last','name_first','key_mlbam']]
+            new_names=new_data.merge(id_df, how = 'left',left_on='batter',right_on='key_mlbam')
+            df=pd.concat([old_data,new_names])
     else:
         new_d=statcast(start_date,yd)
         new_data=new_d[new_d.events.notnull()]
