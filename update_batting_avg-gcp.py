@@ -94,7 +94,7 @@ def run_pull(start_date,yr=2021):
     ## now write to the google sheet
 
     # #authorization
-    gc = pygsheets.authorize(client_secret='/home/irarickman/client_secret.json')
+    gc = pygsheets.authorize(service_file='/home/irarickman/formal-thunder-186123-ab6b0fb6bc46.json')
     mlb = 'MLB At Bats'
     sh = gc.open(mlb)
 
